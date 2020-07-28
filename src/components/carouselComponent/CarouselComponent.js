@@ -7,8 +7,8 @@ function CarouselComponent () {
       <Carousel.Item>
         <img
           className="img-responsive center-block"
-          width={800}
-          height={400}
+          width={750}
+          height={350}
           src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
           alt="First slide"
           />
@@ -20,8 +20,8 @@ function CarouselComponent () {
       <Carousel.Item>
         <img
           className="img-responsive center-block"
-          width={800}
-          height={400}
+          width={750}
+          height={350}
           src="https://homepages.cae.wisc.edu/~ece533/images/arctichare.png"
           alt="Third slide"
           />
@@ -34,8 +34,8 @@ function CarouselComponent () {
       <Carousel.Item>
         <img
           className="img-responsive center-block"
-          width={800}
-          height={400}
+          width={750}
+          height={350}
           src="https://homepages.cae.wisc.edu/~ece533/images/baboon.png"
           alt="Third slide"
           />

@@ -1,25 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types';
 import { Col, Row, Form, Button } from "react-bootstrap";
 
-class LoginForm extends React.Component {
-  state = {
-    username: '',
-    password: ''
-  };
-
-  handle_change = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState(prevstate => {
-      const newState = { ...prevstate };
-      newState[name] = value;
-      return newState;
-    });
-  };
-
-  render() {
-    return (
+function LoginForm() {
+  return (
+    <div className="col-md-6 offset-md-3">
       <Form onSubmit={e => this.props.handle_login(e, this.state)}>
         <Form.Group as={Form.Row} controlId="formHorizontalEmail">
           <Form.Label column sm={2}>
@@ -29,8 +13,6 @@ class LoginForm extends React.Component {
             <Form.Control
             type="email"
             placeholder="Email"
-            value={this.state.username}
-            onChange={this.handle_change}
             />
           </Col>
         </Form.Group>
@@ -43,8 +25,6 @@ class LoginForm extends React.Component {
             <Form.Control
             type="password"
             placeholder="Password"
-            value={this.state.password}
-            onChange={this/handle_change}
             />
           </Col>
         </Form.Group>
@@ -61,12 +41,10 @@ class LoginForm extends React.Component {
           </Col>
         </Form.Group>
       </Form>
-    )
-  }
+    </div>
+  )
 }
 
-export default LoginForm
 
-LoginForm.propTypes = {
-  handle_login: PropTypes.func.isRequired
-};
+
+export default LoginForm

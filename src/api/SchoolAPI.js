@@ -8,18 +8,34 @@ const addUser = (userObject) => {
   })
 }
 
+const loginUser = (userObject) => {
+  return fetch('http//localhost:8000/school_api/token/obtain/', {
+    headers: {
+    'Authorization': "JWT " + localStorage.getItem('access_token'),
+    'Content-type': 'application/json'
+  },
+    method: 'POST',
+    body: JSON.stringify(userObject)
+  })
+}
+
+const fetchUserByID = (user_id) => {
+  return fetch(`http://localhost:8000/school_api/users/${user_id}/`)
+  .then((response) => response.json())
+}
+
 const fetchTeacherByID = (teacher_id) => {
-  return fetch(`localhost:8000/teachers/${teacher_id}`)
+  return fetch(`http://localhost:8000/school_api/teachers/${teacher_id}/`)
   .then((response) => response.json())
 }
 
 const fetchStudents = () => {
-  return fetch(`https://localhost:8000/students`)
+  return fetch(`http://localhost:8000/school_api/students/`)
   .then((response) => response.json())
 }
 
 const addStudent = (studentObject) => {
-  return fetch('https://localhost:8000/students/add-student', {
+  return fetch('http://localhost:8000/school_api/students/add-student/', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -29,13 +45,15 @@ const addStudent = (studentObject) => {
 }
 
 const fetchClasses = () => {
-  return fetch('https://localhost:8000/classes')
+  return fetch('http://localhost:8000/school_api/classes/')
   .then((response) => response.json())
 }
 
 
 export default {
+  loginUser,
   addUser,
+  fetchUserByID,
   fetchTeacherByID,
   fetchStudents,
   addStudent,

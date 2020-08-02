@@ -10,9 +10,9 @@ import PrivateRoute from './pages/Dashboard'
 import AboutPage from './pages/About'
 import TeacherPage from './pages/Teacher'
 import CreateClass from './pages/CreateClass'
+import EditClass from './pages/EditClass'
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import axiosInstance from './axiosApi';
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
           <Route exact path='/registerstudent' component={RegisterStudentForm}/>
           <Route exact path='/teacher' component={TeacherPage}/>
           <Route exact path='/teacher/createclass' component={CreateClass}/>
+          <Route exact path='/teacher/:id/editclass' component={EditClass}/>
           <Route restricted={false} component={HomePage} exact path="/" />
           <Route restricted={false} component={LoginForm} exact path="/login" />
           <Route exact path='/about' component={AboutPage}/>

@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { Component }from 'react'
+import { Redirect } from 'react-router'
 import { Col, Form, Button } from "react-bootstrap";
 import schoolAPI from '../../api/SchoolAPI'
 
-class RegisterForm extends React.Component {
+class RegisterForm extends Component {
   state = {
-    redirect: false
+    redirect: false,
   };
 
-  handleSubmit(event){
+  handleSubmit = (event) => {
+    console.log("submitted!!!!!!!!!!!!!!!!!")
     event.preventDefault()
     const userObject = {
       username: event.target.elements[0].value,
@@ -20,15 +22,20 @@ class RegisterForm extends React.Component {
       zip: event.target.elements[7].value,
     }
     schoolAPI.addUser(userObject)
-      .then((response) => { this.setState({ redirect: true })
-    })
+      .then((response) => this.setState({ redirect: true }))
+      .catch(err => console.log(err))
+    localStorage.setItem('isLoggedIn', true)
   };
 
   render() {
+    const { redirect } = this.state
+    if (redirect) {
+      return <Redirect to = "dashboard/" />
+    }
     return (
       <div className="col-md-8 offset-md-2">
 
-        <Form onSubmit={this.handleSubmit.bind(this)}>
+        <Form onSubmit={this.handleSubmit}>
           <div>
             <Form.Row>
               <Form.Group as={Col} controlId="formGridUser">
@@ -148,5 +155,6 @@ class RegisterForm extends React.Component {
     )
   }
 }
+
 
 export default RegisterForm;

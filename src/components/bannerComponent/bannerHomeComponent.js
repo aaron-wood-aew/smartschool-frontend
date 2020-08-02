@@ -13,13 +13,14 @@ const Banner = () => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="/about">About</Nav.Link>
+          <Nav.Link href="/login">Login</Nav.Link>
+          <Nav.Link href="/dashboard">Dashboard</Nav.Link>
         </Nav>
         <Nav>
           <Nav.Link href="/register">Register</Nav.Link>
            <NavDropdown className="mr-sm-2" title="Dropdown" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+            <NavDropdown.Item href="/registerstudent">Register Student</NavDropdown.Item>
+            <NavDropdown.Item href="/teacher/createclass/">Create Class</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="#">Log out</NavDropdown.Item>
           </NavDropdown>

@@ -9,41 +9,27 @@ function CarouselComponent () {
           className="img-responsive center-block"
           width={750}
           height={350}
-          src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
+          src={require("../../children-having-fun-at-school.jpg")}
           alt="First slide"
           />
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="img-responsive center-block"
           width={750}
           height={350}
-          src="https://homepages.cae.wisc.edu/~ece533/images/arctichare.png"
+          src={require("../../Child-PNG-Image.png")}
           alt="Third slide"
           />
-
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="img-responsive center-block"
           width={750}
           height={350}
-          src="https://homepages.cae.wisc.edu/~ece533/images/baboon.png"
+          src={require("../../teacherchildren.png")}
           alt="Third slide"
           />
-
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-        </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
   )

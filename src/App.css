@@ -42,3 +42,7 @@
   height:500px;
   margin: auto;
 }
+
+.carousel-caption {
+  color:          black;
+}

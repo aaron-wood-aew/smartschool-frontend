@@ -1,18 +1,36 @@
 import React, { Component } from 'react'
 import { Col, Form, Button } from "react-bootstrap";
+import { Route, Redirect } from 'react-router-dom';
 import { render } from 'react-dom';
 import schoolAPI from '../api/SchoolAPI'
 
-class CreateClass extends Component {
+class EditClass extends Component {
   constructor(props) {
     super(props);
     this.state = {
       teacher: 2,
+      formData: '',
+      redirect: false,
     }
   }
-  
+
+  componentDidMount() {
+    schoolAPI.fetchClassByID(this.props.match.params.id)
+      .then(response => {
+        this.setState({ formData: response })
+      })
+  }
+  // this.props.match.params.id
+  handleDelete = (event) => {
+    const { id } = this.props.match.params
+    schoolAPI.deleteClass(id)
+      .then(response => this.setState({ redirect: true })
+    )
+  }
+
   handleSubmit = (event) => {
     event.preventDefault()
+    const { id } = this.props.match.params
     console.log(event.target.elements)
     const addressObject = {
       street_1: event.target.elements[2].value,
@@ -30,19 +48,31 @@ class CreateClass extends Component {
       startDate: event.target.elements[7].value,
       endDate: event.target.elements[8].value,
     }
-    console.log(classObject)
-    schoolAPI.addClass(classObject)
-      .then((response) => {
-        if ( !response.ok) {
-          throw Error (response.data)
-        }
-        return response
-      })
-      .then(() => this.setState({ teacher: 2 }))
-      .catch(err => console.log(err))
+
+    schoolAPI.editClass(id, classObject)
+  //     .then((response) => {
+  //       if ( !response.ok) {
+  //         throw Error (response.data)
+  //       }
+  //       return response
+  //     })
+  //     .then(() => this.setState({ teacher: 2 }))
+  //     .catch(err => console.log(err))
   };
+  
+  // this.props.match.params.id
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/dashboard" />
+    }
+    if (this.state.formData.length === 0) {
+      return (
+      <h1>Waiting...</h1>
+      )
+    }
+    const { name, address, teacher, start_date, end_date } = this.state.formData
+    console.log(this.state.formData)
     return (
       <div className="col-md-8 offset-md-2">
         <Form onSubmit={this.handleSubmit}>
@@ -55,6 +85,7 @@ class CreateClass extends Component {
                 type="text"
                 placeholder=""
                 name="name"
+                defaultValue={name}
                 />
               </Form.Group>
     
@@ -75,12 +106,12 @@ class CreateClass extends Component {
           <div className='col-md-8 offset-md-2'>
             <Form.Group controlId="formGridAddress1">
               <Form.Label>Address 1</Form.Label>
-              <Form.Control name="address1" placeholder="1234 Main St" />
+              <Form.Control defaultValue={address.street_1}name="address1" placeholder="1234 Main St" />
             </Form.Group>
       
             <Form.Group controlId="formGridAddress2">
               <Form.Label>Address 2</Form.Label>
-              <Form.Control name="address2" placeholder="Apartment, studio, or floor" />
+              <Form.Control defaultValue={address.street_2}name="address2" placeholder="Apartment, studio, or floor" />
             </Form.Group>
           </div>
 
@@ -88,12 +119,12 @@ class CreateClass extends Component {
             <Form.Row>
               <Form.Group as={Col} controlId="formGridCity">
                 <Form.Label>City</Form.Label>
-                <Form.Control name="city"/>
+                <Form.Control defaultValue={address.city}name="city"/>
               </Form.Group>
       
               <Form.Group as={Col} controlId="formGridState">
                 <Form.Label>State</Form.Label>
-                <Form.Control name="state" as="select" defaultValue="Choose...">
+                <Form.Control defaultValue={address.state}name="state" as="select">
                   <option value="">...</option>
                   <option value="AL">Alabama</option>
                   <option value="AK">Alaska</option>
@@ -151,7 +182,7 @@ class CreateClass extends Component {
       
               <Form.Group as={Col} controlId="formGridZip">
                 <Form.Label>Zip</Form.Label>
-                <Form.Control name="zip"/>
+                <Form.Control defaultValue={address.zip_code}name="zip"/>
               </Form.Group>
             </Form.Row>
           </div>
@@ -160,20 +191,23 @@ class CreateClass extends Component {
             <Form.Row >
               <Form.Group as={Col} controlId="startDate">
                 <Form.Label>Start Date</Form.Label>
-                  <Form.Control type="date" name="start_date" placeholder="">
+                  <Form.Control defaultValue={end_date}type="date" name="start_date" placeholder="">
                   </Form.Control>
               </Form.Group>
               <Form.Group as ={Col} controlId="endDate">
                 <Form.Label>End Date</Form.Label>
-                  <Form.Control type="date" name="end_date" placeholder="">
+                  <Form.Control defaultValue={end_date}type="date" name="end_date" placeholder="">
                   </Form.Control>
               </Form.Group>
             </Form.Row>
           </div>
 
           <div className='col-md-6 offset-md-5'>
-            <Button variant="primary" type="submit">
+            <Button variant="success" type="submit">
               Submit
+            </Button>
+            <Button variant="danger" onClick={this.handleDelete}>
+              Delete
             </Button>
           </div>
         </Form>
@@ -181,4 +215,5 @@ class CreateClass extends Component {
     )
   }
 }
-export default CreateClass
+
+export default EditClass

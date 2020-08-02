@@ -9,15 +9,15 @@ class TeacherPage extends Component {
     classes: {}
   }
 
-  componentDidMount() {
-    SchoolAPI.fetchClasses()
-      .then((apiResponseJSON) => {
-        this.setState({
-          classes: apiResponseJSON.classes
-        })
-      }
-    )
-  }
+  // componentDidMount() {
+  //   SchoolAPI.fetchClasses()
+  //     .then((apiResponseJSON) => {
+  //       this.setState({
+  //         classes: apiResponseJSON.classes
+  //       })
+  //     }
+  //   )
+  // }
 
   render() {
     const classes = this.state.classes
